@@ -163,6 +163,9 @@ public class tablaController {
                 mostrarAlertError(errores);
             }else{
                 tablaVista.getItems().add(p);
+                txtNombre.setText("");
+                txtApellidos.setText("");
+                txtEdad.setText("");
                 mostrarVentanaAgregado();}
         }
     }
