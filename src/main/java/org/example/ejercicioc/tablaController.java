@@ -6,7 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-        import javafx.scene.layout.BorderPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -169,6 +170,11 @@ public class tablaController {
                 mostrarVentanaAgregado();}
         }
     }
+    /**
+     * Método que se ejecuta al hacer clic en el botón para eliminar una persona.
+     * Verifica si hay una persona seleccionada y, si lo está elimina la persona de la tabla.
+     * @param event Evento de acción asociado al clic del botón.
+     */
     @FXML
     void eliminar(ActionEvent event) {
         Persona p=tablaVista.getSelectionModel().getSelectedItem();
@@ -180,10 +186,125 @@ public class tablaController {
         }else{
         mostrarVentanaEliminado();}
     }
+    /**
+     * Método que se ejecuta al hacer clic en el botón para modificar una persona.
+     * Verifica si los campos son válidos y, si lo son, modifica la persona de la tabla.
+     * @param event Evento de acción asociado al clic del botón.
+     */
+    /*@FXML
+    void modificar(ActionEvent event) {
+        Persona p = tablaVista.getSelectionModel().getSelectedItem();
+        if (p != null) {
+            boolean error = false;
+            ArrayList<String> errores = new ArrayList<>();
 
+            if (txtNombre.getText().equals("")) {
+                errores.add("El campo Nombre es obligatorio.");
+                error = true;
+            }
+
+            if (txtApellidos.getText().equals("")) {
+                errores.add("El campo Apellidos es obligatorio.");
+                error = true;
+            }
+
+            try {
+                Integer.parseInt(txtEdad.getText());
+            } catch (NumberFormatException e) {
+                errores.add("El campo Edad debe ser numérico.");
+                error = true;
+            }
+
+            if (error) {
+                mostrarAlertError(errores);
+            } else {
+                Persona pCheck = new Persona(txtNombre.getText(), txtApellidos.getText(), Integer.parseInt(txtEdad.getText()));
+                for (Persona persona : tablaVista.getItems()) {
+                    if (pCheck.equals(persona)) {
+                        error = true;
+                    }
+                }
+
+                if (error) {
+                    errores.add("La persona ya existe.");
+                    mostrarAlertError(errores);
+                } else {
+                   p.setNombre(p.getNombre());
+                    p.setApellidos(p.getApellidos());
+                    p.setEdad(p.getEdad());
+
+                    // Limpiar los campos de texto después de modificar
+                    txtNombre.setText("");
+                    txtApellidos.setText("");
+                    txtEdad.setText("");
+
+                    mostrarVentanaModificado();
+                }
+            }
+        } else {
+            ArrayList<String> lst = new ArrayList<>();
+            lst.add("No has seleccionado ninguna persona.");
+            mostrarAlertError(lst);
+        }
+    }*/
     @FXML
     void modificar(ActionEvent event) {
+        Persona p = tablaVista.getSelectionModel().getSelectedItem();
+        if (p != null) {
+            boolean error = false;
+            ArrayList<String> errores = new ArrayList<>();
 
+            if (txtNombre.getText().equals("")) {
+                errores.add("El campo Nombre es obligatorio.");
+                error = true;
+            }
+
+            if (txtApellidos.getText().equals("")) {
+                errores.add("El campo Apellidos es obligatorio.");
+                error = true;
+            }
+
+            try {
+                Integer.parseInt(txtEdad.getText());
+            } catch (NumberFormatException e) {
+                errores.add("El campo Edad debe ser numérico.");
+                error = true;
+            }
+
+            if (error) {
+                mostrarAlertError(errores);
+            } else {
+                // Actualiza directamente el objeto existente en lugar de crear uno nuevo
+                p.setNombre(txtNombre.getText());
+                p.setApellidos(txtApellidos.getText());
+                p.setEdad(Integer.parseInt(txtEdad.getText()));
+
+                // Limpiar los campos de texto después de modificar
+                txtNombre.setText("");
+                txtApellidos.setText("");
+                txtEdad.setText("");
+
+                mostrarVentanaModificado();
+            }
+        } else {
+            ArrayList<String> lst = new ArrayList<>();
+            lst.add("No has seleccionado ninguna persona.");
+            mostrarAlertError(lst);
+        }
+    }
+
+    /**
+     * Método que se ejecuta al hacer clic en la tabla.
+     * Muestra los campos de la persona seleccionada.
+     * @param mouseEvent Evento de acción asociado al clic del mouse.
+     */
+    public void seleccionado(MouseEvent mouseEvent) {
+        Persona p=tablaVista.getSelectionModel().getSelectedItem();
+        if(p!=null){
+        txtNombre.setText(p.getNombre());
+        txtApellidos.setText(p.getApellidos());
+        txtEdad.setText(""+p.getEdad());}
     }
 }
+
 

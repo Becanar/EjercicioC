@@ -43,6 +43,31 @@ public class Persona {
         return apellidos;
     }
     /**
+     * Establece el nombre de la persona.
+     *
+     * @param nombre El nombre que se asignará a la persona.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    /**
+     * Establece los apellidos de la persona.
+     *
+     * @param apellidos Los apellidos que se asignarán a la persona.
+     */
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+    /**
+     * Establece la edad de la persona.
+     *
+     * @param edad La edad que se asignará a la persona.
+     */
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    /**
      * Sobrescribe el método equals para comparar dos personas basándose en sus atributos.
      * @param o Objeto a comparar con esta instancia de Persona.
      * @return true si las personas son iguales, false en caso contrario.
