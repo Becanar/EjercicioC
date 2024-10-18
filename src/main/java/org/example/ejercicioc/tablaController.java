@@ -98,12 +98,34 @@ public class tablaController {
     /**
      * Muestra una ventana de confirmación indicando que la persona fue agregada correctamente.
      */
-    private void mostrarVentanaOK() {
+    private void mostrarVentanaAgregado() {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.initOwner(btAgregar.getScene().getWindow());
         alerta.setHeaderText(null);
         alerta.setTitle("Info");
         alerta.setContentText("Persona agregada correctamente.");
+        alerta.showAndWait();
+    }
+    /**
+     * Muestra una ventana de confirmación indicando que la persona fue modificada correctamente.
+     */
+    private void mostrarVentanaModificado() {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.initOwner(btAgregar.getScene().getWindow());
+        alerta.setHeaderText(null);
+        alerta.setTitle("Info");
+        alerta.setContentText("Persona modificada correctamente.");
+        alerta.showAndWait();
+    }
+    /**
+     * Muestra una ventana de confirmación indicando que la persona fue eliminada correctamente.
+     */
+    private void mostrarVentanaEliminado() {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.initOwner(btAgregar.getScene().getWindow());
+        alerta.setHeaderText(null);
+        alerta.setTitle("Info");
+        alerta.setContentText("Persona eliminada correctamente.");
         alerta.showAndWait();
     }
     /**
@@ -141,12 +163,19 @@ public class tablaController {
                 mostrarAlertError(errores);
             }else{
                 tablaVista.getItems().add(p);
-                mostrarVentanaOK();}
+                mostrarVentanaAgregado();}
         }
     }
     @FXML
     void eliminar(ActionEvent event) {
-
+        Persona p=tablaVista.getSelectionModel().getSelectedItem();
+        tablaVista.getItems().remove(p);
+        if(p==null){
+            ArrayList<String> lst=new ArrayList<>();
+            lst.add("No has seleccionado ninguna persona.");
+            mostrarAlertError(lst);
+        }else{
+        mostrarVentanaEliminado();}
     }
 
     @FXML
