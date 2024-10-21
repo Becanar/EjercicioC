@@ -1,5 +1,6 @@
 package org.example.ejercicioc;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -75,10 +76,11 @@ public class tablaController {
      * Este método se ejecuta automáticamente al cargar la vista FXML.
      */
     public void initialize() {
-        columnaNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-        columnaApellidos.setCellValueFactory(cellData -> cellData.getValue().apellidosProperty());
-        columnaEdad.setCellValueFactory(cellData -> cellData.getValue().edadProperty().asObject());
+        columnaNombre.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getNombre()));
+        columnaApellidos.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getApellidos()));
+        columnaEdad.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getEdad()));
     }
+
     /**
      * Muestra una alerta de error con una lista de mensajes de error.
      * @param lst Lista de errores a mostrar en la alerta.
@@ -245,6 +247,7 @@ public class tablaController {
                     txtApellidos.setText("");
                     txtEdad.setText("");
                     tablaVista.getSelectionModel().clearSelection();
+                    tablaVista.refresh();
                     mostrarVentanaModificado();
                 }
             }

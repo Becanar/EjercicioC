@@ -1,19 +1,14 @@
 package org.example.ejercicioc;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.property.IntegerProperty;
-//del b al c he cambiado el tipo de datos ya que no conseguía que al modificar la tabla mostrara los resultados
 /**
  * Clase que representa una persona con nombre, apellidos y edad.
- * Esta clase utiliza propiedades de JavaFX para permitir la actualización automática
- * de la interfaz gráfica cuando se cambian los valores de sus atributos.
+ * Esta clase se utiliza para almacenar la información básica de una persona.
  */
 public class Persona {
-    private final StringProperty nombre;
-    private final StringProperty apellidos;
-    private final IntegerProperty edad;
+    private String nombre; // Cambiado a String
+    private String apellidos; // Cambiado a String
+    private int edad; // Cambiado a int
+
     /**
      * Constructor de la clase Persona.
      *
@@ -22,83 +17,65 @@ public class Persona {
      * @param edad      La edad de la persona.
      */
     public Persona(String nombre, String apellidos, int edad) {
-        this.nombre = new SimpleStringProperty(nombre);
-        this.apellidos = new SimpleStringProperty(apellidos);
-        this.edad = new SimpleIntegerProperty(edad);
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.edad = edad;
     }
+
     /**
      * Obtiene el nombre de la persona.
      *
      * @return El nombre de la persona.
      */
     public String getNombre() {
-        return nombre.get();
+        return nombre;
     }
+
     /**
      * Establece el nombre de la persona.
      *
      * @param nombre El nuevo nombre de la persona.
      */
     public void setNombre(String nombre) {
-        this.nombre.set(nombre);
+        this.nombre = nombre;
     }
-    /**
-     * Devuelve la propiedad de nombre.
-     *
-     * @return La propiedad de nombre.
-     */
-    public StringProperty nombreProperty() {
-        return nombre;
-    }
+
     /**
      * Obtiene los apellidos de la persona.
      *
      * @return Los apellidos de la persona.
      */
     public String getApellidos() {
-        return apellidos.get();
+        return apellidos;
     }
+
     /**
      * Establece los apellidos de la persona.
      *
      * @param apellidos Los nuevos apellidos de la persona.
      */
     public void setApellidos(String apellidos) {
-        this.apellidos.set(apellidos);
+        this.apellidos = apellidos;
     }
-    /**
-     * Devuelve la propiedad de apellidos.
-     *
-     * @return La propiedad de apellidos.
-     */
-    public StringProperty apellidosProperty() {
-        return apellidos;
-    }
+
     /**
      * Obtiene la edad de la persona.
      *
      * @return La edad de la persona.
      */
     public int getEdad() {
-        return edad.get();
+        return edad;
     }
+
     /**
      * Establece la edad de la persona.
      *
      * @param edad La nueva edad de la persona.
      */
     public void setEdad(int edad) {
-        this.edad.set(edad);
+        this.edad = edad;
     }
 
-    /**
-     * Devuelve la propiedad de edad.
-     *
-     * @return La propiedad de edad.
-     */
-    public IntegerProperty edadProperty() {
-        return edad;
-    }
     /**
      * Compara esta persona con otra para determinar si son iguales.
      * Dos personas se consideran iguales si tienen el mismo nombre, apellidos y edad.
