@@ -1,90 +1,118 @@
 package org.example.ejercicioc;
 
-import java.util.Objects;
-
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.IntegerProperty;
+//del b al c he cambiado el tipo de datos ya que no conseguía que al modificar la tabla mostrara los resultados
 /**
  * Clase que representa una persona con nombre, apellidos y edad.
+ * Esta clase utiliza propiedades de JavaFX para permitir la actualización automática
+ * de la interfaz gráfica cuando se cambian los valores de sus atributos.
  */
 public class Persona {
-    private String nombre;
-    private String apellidos;
-    private int edad;
+    private final StringProperty nombre;
+    private final StringProperty apellidos;
+    private final IntegerProperty edad;
     /**
-     * Constructor que inicializa una nueva instancia de Persona.
-     * @param n Nombre de la persona.
-     * @param a Apellidos de la persona.
-     * @param e Edad de la persona.
+     * Constructor de la clase Persona.
+     *
+     * @param nombre    El nombre de la persona.
+     * @param apellidos Los apellidos de la persona.
+     * @param edad      La edad de la persona.
      */
-    public Persona(String n, String a, int e){
-        this.nombre=n;
-        this.apellidos=a;
-        this.edad=e;
-    }
-    /**
-     * Obtiene la edad de la persona.
-     * @return Edad de la persona.
-     */
-    public int getEdad() {
-        return edad;
+    public Persona(String nombre, String apellidos, int edad) {
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellidos = new SimpleStringProperty(apellidos);
+        this.edad = new SimpleIntegerProperty(edad);
     }
     /**
      * Obtiene el nombre de la persona.
-     * @return Nombre de la persona.
+     *
+     * @return El nombre de la persona.
      */
     public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * Obtiene los apellidos de la persona.
-     * @return  Apellidos de la persona.
-     */
-    public String getApellidos() {
-        return apellidos;
+        return nombre.get();
     }
     /**
      * Establece el nombre de la persona.
      *
-     * @param nombre El nombre que se asignará a la persona.
+     * @param nombre El nuevo nombre de la persona.
      */
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre.set(nombre);
+    }
+    /**
+     * Devuelve la propiedad de nombre.
+     *
+     * @return La propiedad de nombre.
+     */
+    public StringProperty nombreProperty() {
+        return nombre;
+    }
+    /**
+     * Obtiene los apellidos de la persona.
+     *
+     * @return Los apellidos de la persona.
+     */
+    public String getApellidos() {
+        return apellidos.get();
     }
     /**
      * Establece los apellidos de la persona.
      *
-     * @param apellidos Los apellidos que se asignarán a la persona.
+     * @param apellidos Los nuevos apellidos de la persona.
      */
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        this.apellidos.set(apellidos);
+    }
+    /**
+     * Devuelve la propiedad de apellidos.
+     *
+     * @return La propiedad de apellidos.
+     */
+    public StringProperty apellidosProperty() {
+        return apellidos;
+    }
+    /**
+     * Obtiene la edad de la persona.
+     *
+     * @return La edad de la persona.
+     */
+    public int getEdad() {
+        return edad.get();
     }
     /**
      * Establece la edad de la persona.
      *
-     * @param edad La edad que se asignará a la persona.
+     * @param edad La nueva edad de la persona.
      */
     public void setEdad(int edad) {
-        this.edad = edad;
+        this.edad.set(edad);
     }
 
     /**
-     * Sobrescribe el método equals para comparar dos personas basándose en sus atributos.
-     * @param o Objeto a comparar con esta instancia de Persona.
-     * @return true si las personas son iguales, false en caso contrario.
+     * Devuelve la propiedad de edad.
+     *
+     * @return La propiedad de edad.
      */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Persona persona = (Persona) o;
-        return edad == persona.edad && Objects.equals(nombre, persona.nombre) && Objects.equals(apellidos, persona.apellidos);
+    public IntegerProperty edadProperty() {
+        return edad;
     }
     /**
-     * Sobrescribe el método hashCode basado en los atributos de la persona.
-     * @return Código hash de la persona.
+     * Compara esta persona con otra para determinar si son iguales.
+     * Dos personas se consideran iguales si tienen el mismo nombre, apellidos y edad.
+     *
+     * @param obj El objeto con el que se va a comparar.
+     * @return true si son iguales, false en caso contrario.
      */
     @Override
-    public int hashCode() {
-        return Objects.hash(nombre, apellidos, edad);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Persona persona = (Persona) obj;
+        return getNombre().equals(persona.getNombre()) &&
+                getApellidos().equals(persona.getApellidos()) &&
+                getEdad() == persona.getEdad();
     }
 }

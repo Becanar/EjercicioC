@@ -1,6 +1,5 @@
 package org.example.ejercicioc;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -76,9 +75,9 @@ public class tablaController {
      * Este método se ejecuta automáticamente al cargar la vista FXML.
      */
     public void initialize() {
-        columnaNombre.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getNombre()));
-        columnaApellidos.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getApellidos()));
-        columnaEdad.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getEdad()));
+        columnaNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
+        columnaApellidos.setCellValueFactory(cellData -> cellData.getValue().apellidosProperty());
+        columnaEdad.setCellValueFactory(cellData -> cellData.getValue().edadProperty().asObject());
     }
     /**
      * Muestra una alerta de error con una lista de mensajes de error.
@@ -167,6 +166,7 @@ public class tablaController {
                 txtNombre.setText("");
                 txtApellidos.setText("");
                 txtEdad.setText("");
+                tablaVista.getSelectionModel().clearSelection();
                 mostrarVentanaAgregado();}
         }
     }
@@ -184,6 +184,10 @@ public class tablaController {
             lst.add("No has seleccionado ninguna persona.");
             mostrarAlertError(lst);
         }else{
+            txtNombre.setText("");
+            txtApellidos.setText("");
+            txtEdad.setText("");
+            tablaVista.getSelectionModel().clearSelection();
         mostrarVentanaEliminado();}
     }
     /**
@@ -191,62 +195,6 @@ public class tablaController {
      * Verifica si los campos son válidos y, si lo son, modifica la persona de la tabla.
      * @param event Evento de acción asociado al clic del botón.
      */
-    /*@FXML
-    void modificar(ActionEvent event) {
-        Persona p = tablaVista.getSelectionModel().getSelectedItem();
-        if (p != null) {
-            boolean error = false;
-            ArrayList<String> errores = new ArrayList<>();
-
-            if (txtNombre.getText().equals("")) {
-                errores.add("El campo Nombre es obligatorio.");
-                error = true;
-            }
-
-            if (txtApellidos.getText().equals("")) {
-                errores.add("El campo Apellidos es obligatorio.");
-                error = true;
-            }
-
-            try {
-                Integer.parseInt(txtEdad.getText());
-            } catch (NumberFormatException e) {
-                errores.add("El campo Edad debe ser numérico.");
-                error = true;
-            }
-
-            if (error) {
-                mostrarAlertError(errores);
-            } else {
-                Persona pCheck = new Persona(txtNombre.getText(), txtApellidos.getText(), Integer.parseInt(txtEdad.getText()));
-                for (Persona persona : tablaVista.getItems()) {
-                    if (pCheck.equals(persona)) {
-                        error = true;
-                    }
-                }
-
-                if (error) {
-                    errores.add("La persona ya existe.");
-                    mostrarAlertError(errores);
-                } else {
-                   p.setNombre(p.getNombre());
-                    p.setApellidos(p.getApellidos());
-                    p.setEdad(p.getEdad());
-
-                    // Limpiar los campos de texto después de modificar
-                    txtNombre.setText("");
-                    txtApellidos.setText("");
-                    txtEdad.setText("");
-
-                    mostrarVentanaModificado();
-                }
-            }
-        } else {
-            ArrayList<String> lst = new ArrayList<>();
-            lst.add("No has seleccionado ninguna persona.");
-            mostrarAlertError(lst);
-        }
-    }*/
     @FXML
     void modificar(ActionEvent event) {
         Persona p = tablaVista.getSelectionModel().getSelectedItem();
@@ -274,17 +222,31 @@ public class tablaController {
             if (error) {
                 mostrarAlertError(errores);
             } else {
-                // Actualiza directamente el objeto existente en lugar de crear uno nuevo
-                p.setNombre(txtNombre.getText());
-                p.setApellidos(txtApellidos.getText());
-                p.setEdad(Integer.parseInt(txtEdad.getText()));
+                // Verificar si la nueva persona ya existe
+                Persona pCheck = new Persona(txtNombre.getText(), txtApellidos.getText(), Integer.parseInt(txtEdad.getText()));
+                for (Persona persona : tablaVista.getItems()) {
+                    if (pCheck.equals(persona)) {
+                        error = true;
+                        break; // Salir del bucle si encontramos una coincidencia
+                    }
+                }
 
-                // Limpiar los campos de texto después de modificar
-                txtNombre.setText("");
-                txtApellidos.setText("");
-                txtEdad.setText("");
+                if (error) {
+                    errores.add("La persona ya existe.");
+                    mostrarAlertError(errores);
+                } else {
+                    // Actualiza los atributos de la persona seleccionada
+                    p.setNombre(txtNombre.getText());
+                    p.setApellidos(txtApellidos.getText());
+                    p.setEdad(Integer.parseInt(txtEdad.getText()));
 
-                mostrarVentanaModificado();
+                    // Limpiar los campos de texto después de modificar
+                    txtNombre.setText("");
+                    txtApellidos.setText("");
+                    txtEdad.setText("");
+                    tablaVista.getSelectionModel().clearSelection();
+                    mostrarVentanaModificado();
+                }
             }
         } else {
             ArrayList<String> lst = new ArrayList<>();
