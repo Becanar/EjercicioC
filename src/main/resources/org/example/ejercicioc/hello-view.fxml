@@ -64,6 +64,9 @@
                <VBox.margin>
                   <Insets right="10.0" top="10.0" />
                </VBox.margin>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <HBox fx:id="contenedorBotones" prefHeight="47.0" prefWidth="439.0">
                <children>
