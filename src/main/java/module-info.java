@@ -4,5 +4,8 @@ module org.example.ejercicioc {
 
 
     opens org.example.ejercicioc to javafx.fxml;
-    exports org.example.ejercicioc;
+    exports org.example.ejercicioc.model;
+    opens org.example.ejercicioc.model to javafx.fxml;
+    exports org.example.ejercicioc.app;
+    opens org.example.ejercicioc.app to javafx.fxml;
 }

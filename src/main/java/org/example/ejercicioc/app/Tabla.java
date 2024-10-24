@@ -1,4 +1,4 @@
-package org.example.ejercicioc;
+package org.example.ejercicioc.app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class Tabla extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Tabla.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Tabla.class.getResource("/org/example/ejercicioc/hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setMinHeight(425);
         stage.setMinWidth(600);

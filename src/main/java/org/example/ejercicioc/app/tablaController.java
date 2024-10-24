@@ -1,4 +1,4 @@
-package org.example.ejercicioc;
+package org.example.ejercicioc.app;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.example.ejercicioc.model.Persona;
 
 import java.util.ArrayList;
 
